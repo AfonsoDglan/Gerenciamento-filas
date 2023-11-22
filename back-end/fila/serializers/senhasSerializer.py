@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from models.senhas import Senha
+from fila.models.senhas import Senha
 
 class SenhasSerializer(serializers.ModelSerializer):
     class Meta:
