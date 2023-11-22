@@ -15,6 +15,11 @@ FRATURAS_CHOICES = (
     (2, 'Não')
 )
 
+QUEIMADURAS_CHOICES = (
+    (1, 'Sim'),
+    (2, 'Não')
+)
+
 CLASSIFICACAO_CHOICES = (
     (1,'Emergência'),
     (2,'Muito Urgente'),
@@ -41,7 +46,8 @@ class Triagem(models.Model):
     frequenciaRespiratoria = models.IntegerField()
     pressaoArterial = models.IntegerField()
     temperatura = models.FloatField()
-    fraturasExpostas = models.IntegerField('Fraturas Expostas', choices=FRATURAS_CHOICES, null=True) 
+    fraturasExpostas = models.IntegerField('Fraturas Expostas', choices=FRATURAS_CHOICES, null=True)
+    quimadurasGraves = models.ImageField('Queimaduras Graves.', choices=QUEIMADURAS_CHOICES) 
     classificacao = models.IntegerField('Classificacao', choices=CLASSIFICACAO_CHOICES, null=True)
     class Meta:
         verbose_name = "Triagem"
