@@ -3,9 +3,7 @@ version: '3.8'
 services:
   web:
     build: ./back-end
-    command: python manage.py migrate && 
-             python manage.py createsuperuser --noinput --username admin --email teste@example.com --password admin123 &&
-             python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./back-end/:/usr/src/app/
     ports:
