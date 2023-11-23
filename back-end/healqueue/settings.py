@@ -61,7 +61,13 @@ TEMPLATES = [
 ]
 
 ASGI_APPLICATION = "healqueue.asgi.application"
-WSGI_APPLICATION = "healqueue.wsgi.application"
+#WSGI_APPLICATION = "healqueue.wsgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

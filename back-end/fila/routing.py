@@ -1,4 +1,4 @@
-from consumers.senhasConsumers import SenhaConsumer
+from fila.consumers.senhasConsumers import SenhaConsumer
 from django.urls import re_path
 
 

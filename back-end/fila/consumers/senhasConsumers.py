@@ -5,12 +5,12 @@ from djangochannelsrestframework.generics import GenericAsyncAPIConsumer
 from djangochannelsrestframework.observer import model_observer
 from djangochannelsrestframework.mixins import ListModelMixin
 from djangochannelsrestframework import permissions
-from models.senhas import Senha
-from serializers.senhasSerializer import SenhasSerializer
+from fila.models.senhas import Senha
+from fila.serializers.senhasSerializer import SenhasSerializer
 
 class SenhaConsumer(ListModelMixin, GenericAsyncAPIConsumer):
     queryset = Senha.objects.all()
-    permission_classes = (permissions.AllowAny)
+    #permission_classes = (permissions.AllowAny)
     serializer_class = SenhasSerializer
     lookup_field = "pk"
 
