@@ -7,9 +7,8 @@ from fila.routing import websocket_urlpatterns
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "healqueue.settings")
 
-application = get_asgi_application()
 
 application = ProtocolTypeRouter({
-    "http": application,
+    "http": get_asgi_application(),
     "websocket": URLRouter(websocket_urlpatterns),
 })
