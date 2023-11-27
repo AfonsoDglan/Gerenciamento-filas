@@ -7,7 +7,7 @@ import router from './router';
 
 const Logado = ref(false)
 
-const tipo = ref(localStorage.getItem('tipo'))
+const tipo = ref('')
 
 const Sair = () => {
   if (window.confirm("Click Ok para sair, ou cancelar para fechar essa mensagem")) {
@@ -19,7 +19,11 @@ const Sair = () => {
 
 router.beforeEach((to,from) => {
   if (from.name === 'login'&& localStorage.getItem('token')) {
-      Logado.value = true
+      Logado.value = true 
+      const tipoexist = localStorage.getItem('tipo')
+      if (tipoexist){
+        tipo.value = tipoexist
+      }
     }
   }
 )
@@ -49,8 +53,8 @@ router.beforeEach((to,from) => {
 
   <RouterView />
 
-  <RouterLink class="navbtn todapag" v-if="Logado && tipo == '1'" to="/addfila">+</RouterLink>
-  <RouterLink class="navbtn todapag" v-if="Logado && tipo == '2'" to="/triagem">+</RouterLink>
+  <RouterLink class="navbtn todapag" v-if="Logado && tipo === '1'" to="/addfila">+</RouterLink>
+  <RouterLink class="navbtn todapag" v-if="Logado && tipo === '2'" to="/triagem">+</RouterLink>
   
 
 </template>
