@@ -1,0 +1,5 @@
+from fila.models.triagem import Triagem # noqa(F401)
+from fila.models.pessoa import Pessoa # noqa(F401)
+from fila.models.consulta import Consulta # noqa(F401)
+from fila.models.senhas import Senha # noqa(F401)
+from fila.models.painel import Painel # noqa(F401)

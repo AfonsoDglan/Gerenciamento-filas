@@ -1,0 +1,5 @@
+from fila.serializers.senhasSerializer import SenhasSerializer # noqa(F401)
+from fila.serializers.triagemSerializer import TriagemSerializer # noqa(F401)
+from fila.serializers.pessoaSerializer import PessoaSerializer # noqa(F401)
+from fila.serializers.painelSerializer import PainelSerializer # noqa(F401)
+from fila.serializers.consultaSerializer import ConsultaSerializer # noqa(F401)

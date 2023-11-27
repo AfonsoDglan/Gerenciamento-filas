@@ -1,7 +1,8 @@
 from rest_framework import serializers
-from fila.models.senhas import Senha
+from fila.models import Senha
+
 
 class SenhasSerializer(serializers.ModelSerializer):
     class Meta:
         model = Senha
-        fields = ['senha','status', 'tipo']
+        fields = ['senha', 'status', 'tipo']
