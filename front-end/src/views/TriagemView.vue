@@ -7,6 +7,9 @@ import axios from 'axios'
 const api = 'url da api'
 
 const atendente = ref(localStorage.getItem('nome'))
+if (atendente.value) {
+  atendente.value = atendente.value.replace(/['"]+/g, '')
+}
 const nomePaciente = ref('')
 const estado = ref('')
 const senha = ref('')
@@ -50,10 +53,15 @@ const confirmar = () => {
 
 <template>
     <body>
-   
+
         <div class="box">
+
+          <div class="content">
+
             <h1>Triagem</h1>
+
             <div class='form'>
+
                 <div class="inputBox"> 
                     <label for="atendente">Atendente</label>
                     <input v-model="atendente" id="atendente" type="text" required> 
@@ -78,22 +86,37 @@ const confirmar = () => {
 
                 <div class="inputBox"> 
                     <label for="queixa">Queixa</label> 
-                    <input v-model="queixa" id="queixa" type="text" required> 
+                    <textarea v-model="queixa" id="queixa" type="text" required></textarea>
                 </div>  
 
                 <div class="inputBox"> 
                     <label for="historico">Historico</label> 
-                    <input v-model="historico" id="historico" type="text" required> 
+                    <textarea v-model="historico" id="historico" type="text" required> </textarea>
                 </div> 
 
                 <div class="inputBox"> 
                     <label for="observacoes">Observações</label> 
-                    <input v-model="observacoes" id="observacoes" type="text" required> 
+                    <textarea v-model="observacoes" id="observacoes" type="text" required> </textarea>
                 </div> 
 
                 <div class="inputBox"> 
                     <label for="dor">Nivel de dor : {{  dor }}</label> 
-                    <input v-model="dor" id="dor" type="range" min="0" max="10" class="slider">
+                    <input v-model="dor" id="dor" type="range" min="0" max="10" class="slider" list="markers">
+
+                      <datalist id="markers">
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      </datalist>
+                    
                 </div> 
 
                 <div class="inputBox freqs"> 
@@ -166,32 +189,32 @@ const confirmar = () => {
                 </div> 
 
             </div>
+
+          </div>
+
         </div>
+
     </body>
+    
 </template>
 
 <style scoped>
 body 
 {
   display: flex;
-  
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: var(--secondarycolor);
+  background-color: var(--background);
+  font-family: 'Quicksand', sans-serif;
 }
 
-h1{
-  color: var(--primarycolor)
-}
-
-.box
+.box  
 {
   position: relative;
-  flex-direction: column;
-  gap: 10px;
-  width: 50vw;
-  background: #222;  
+  margin-top: 10px;
+  width: 70vw;
+  background: var(--secondarycolor);  
   z-index: 1;
   display: flex;
   justify-content: center;
@@ -200,8 +223,7 @@ h1{
   border-radius: 4px;
   box-shadow: 0 15px 35px rgba(0,0,0,9);
 }
-
-.box  
+.content 
 {
   position: relative;
   width: 100%;
@@ -209,25 +231,33 @@ h1{
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 40px;
+  gap: 20px;
 }
-.box  h2 
+h1
 {
   font-size: 2em;
   color: var(--primarycolor);
+  font-weight: bold;
   text-transform: uppercase;
 }
-.box  .form 
+.form 
 {
-  width: 100%;
+  
   display: flex;
   flex-wrap: wrap;
-  gap: 25px;
+  gap: 20px;
 }
 .box  .form .inputBox
 {
   position: relative;
   width: 100%;
+  color: black;
+  font-weight: bold;
+}
+.box .form .inputBox label
+{
+  color: var(--fontcolortext);
+  font-weight:bold;
 }
 .box .form .freqs
 {
@@ -251,12 +281,12 @@ h1{
 {
   position: relative;
   width: 100%;
-  background: #333;
-  border: 0;
+  background:var(--background);
+  border: 2px solid transparent;
   outline: none;
   padding:  12px;
   border-radius: 4px;
-  color: #fff;
+  color: black;
   font-weight: 500;
   font-size: 1em;
 }
@@ -264,15 +294,42 @@ h1{
 {
   position: relative;
   min-width: 100%;
-  background: #333;
-  border: none;
+  background: var(--background);
+  border: 2px solid transparent;
   outline: none;
   padding: 12px;
   border-radius: 4px;
-  color: #fff;
+  color: var(--fontcolortext);
   font-weight: 500;
   font-size: 1em;
 }
+
+.box  .form .inputBox textarea 
+{
+  position: relative;
+  width: 100%;
+  background:var(--background);
+  border: 2px solid transparent;
+  outline: none;
+  padding:  12px;
+  border-radius: 4px;
+  color: black;
+  font-weight: 500;
+  font-size: 1em;
+}
+
+.box .content .form .inputBox input:focus,select:focus{
+    border: 2px solid var(--primarycolor) ;
+}
+.box .content .form .inputBox select:focus{
+    border: 2px solid var(--primarycolor) ;
+}
+.box .content .form .inputBox textarea:focus{
+    border: 2px solid var(--primarycolor) ;
+    height: 100px;
+}
+
+
 
 .box .form .inputBox input[type="submit"]
 {
@@ -284,31 +341,25 @@ h1{
   letter-spacing: 0.05em;
   cursor: pointer;
 }
-input[type="submit"]:active
+
+.box .form .inputBox input[type="range"]
 {
-  opacity: 0.6;
-}
-@media (max-width: 900px)
-{
-  section span 
-  {
-    width: calc(10vw - 2px);
-    height: calc(10vw - 2px);
-  }
-}
-@media (max-width: 600px)
-{
-  section span 
-  {
-    width: calc(20vw - 2px);
-    height: calc(20vw - 2px);
-  }
+  padding: 0;
 }
 
-.box .form .inputBox input[type="submit"]:hover{
-  background-color: var(--hoverprimarycolor);
-  color: var(--secondarycolor)
+
+
+datalist {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-weight: bold;
+  padding:0 2px;
+ 
 }
+
+
+
 
 
 

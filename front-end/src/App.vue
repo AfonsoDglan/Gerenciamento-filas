@@ -7,11 +7,7 @@ import router from './router';
 
 const Logado = ref(false)
 
-//const Sair = () => {
-//  localStorage.clear()
-//  Logado.value = false
-//  router.push({name:'home'})
-//}
+const tipo = ref(localStorage.getItem('tipo'))
 
 const Sair = () => {
   if (window.confirm("Click Ok para sair, ou cancelar para fechar essa mensagem")) {
@@ -21,14 +17,12 @@ const Sair = () => {
 }
 }
 
-
 router.beforeEach((to,from) => {
-  if (from.name === 'login' && localStorage.getItem('token')) {
-    Logado.value = true
+  if (from.name === 'login'&& localStorage.getItem('token')) {
+      Logado.value = true
+    }
   }
-})
-
-
+)
 
 </script>
 
@@ -39,18 +33,24 @@ router.beforeEach((to,from) => {
         <HelloWorld msg="Hospital" />
         <RouterLink class="navbtn" to="/">Home</RouterLink>
         <RouterLink class="navbtn" to="/fila">Fila</RouterLink>
-        <RouterLink class="navbtn" to="/about">About</RouterLink>
         <RouterLink class="navbtn" to="/perfil">Perfil</RouterLink>
+        <RouterLink class="navbtn" to="/about">About</RouterLink>
+        <RouterLink class="navbtn" to="/triagem">Triagem</RouterLink>
+       
         
         <RouterLink v-if="!Logado" class="navbtn login" to="/login">Login</RouterLink>
 
         <a v-if="Logado" class="navbtn login" @click="Sair()">Sair</a>
+        
         
     </nav>
  
   </header>
 
   <RouterView />
+
+  <RouterLink class="navbtn todapag" v-if="Logado && tipo == '1'" to="/addfila">+</RouterLink>
+  <RouterLink class="navbtn todapag" v-if="Logado && tipo == '2'" to="/triagem">+</RouterLink>
   
 
 </template>
@@ -63,13 +63,14 @@ header {
   position: sticky;
   top: 0px;
   left: 0px;
-  z-index: 1000;
+  z-index: 10;
 
   line-height: 1.5;
   max-height: 100vh;
   background-color:  var(--secondarycolor);
 
   display: flex;
+  box-shadow: 0 1px 4px rgba(0,0,0,9);
 }
 
 .navbtn{
@@ -129,6 +130,28 @@ nav a:first-of-type {
   border-radius: 5px;
 }
 
+.todapag{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0 4px;
+  margin: 0;
+
+  position: fixed;
+  bottom: 5%;
+  left:2%;
+  
+
+  font-weight: bold;
+  font-size: 25px;
+
+  
+  width:50px;
+  height: 50px;
+  border-radius: 100%;
+  
+}
 
 
 </style>

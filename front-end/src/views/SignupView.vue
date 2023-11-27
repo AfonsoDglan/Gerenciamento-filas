@@ -6,12 +6,10 @@ const username = ref('')
 const password = ref('')
 const email = ref('')
 const sexo = ref('')
-
-
-const selected = ref('')
+const area = ref('')
 
 const submit = () => {
-  console.log('Logging in with:', username.value, password.value, cpf.value,email.value,sexo.value,selected.value);
+  console.log('Logging in with:', username.value, password.value, cpf.value,email.value,sexo.value,area.value);
 };
 
 
@@ -70,7 +68,7 @@ const submit = () => {
     <div class="inputBox"> 
 
       <label for="atuacao">Area de Atuação</label><br>
-      <select  v-model="selected" id="atuacao">
+      <select  v-model="area" id="atuacao">
         <option  disabled value="">Selecione</option>
         <option>Atendente</option>
         <option>Triagem</option>
@@ -129,14 +127,15 @@ body
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: var(--secondarycolor);
+  background: var(--background);
 }
 
 .signin
 {
   position: relative;
+  top: 10px;  
   width: 50vw;
-  background: #222;  
+  background: var(--secondarycolor);  
   z-index: 1;
   display: flex;
   justify-content: center;
@@ -153,31 +152,37 @@ body
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 40px;
+  gap: 30px;
 }
 .signin .content h2 
 {
   font-size: 2em;
   color: var(--primarycolor);
   text-transform: uppercase;
+  font-weight: bold;
 }
 .signin .content .form 
 {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 25px;
+  gap: 20px;
 }
 .signin .content .form .inputBox
 {
   position: relative;
   width: 100%;
 }
+section .signin .content .form .inputBox label
+{
+  color: var(--fontcolortext);
+  font-weight:bold;
+}
 .signin .content .form .inputBox input 
 {
   position: relative;
   width: 100%;
-  background: #333;
+  background: var(--background);
   border: 0;
   outline: none;
   padding:  12px;
@@ -190,12 +195,12 @@ body
 {
   position: relative;
   min-width: 150px;
-  background: #333;
+  background: var(--background) ;
   border: none;
   outline: none;
   padding: 12px;
   border-radius: 4px;
-  color: #fff;
+  color: black;
   font-weight: 500;
   font-size: 1em;
 }

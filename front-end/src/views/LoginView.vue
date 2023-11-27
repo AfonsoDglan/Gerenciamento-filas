@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import router from '@/router';
+import axios from 'axios'
 
 const username = ref('teste')
 const password = ref('teste')
@@ -11,21 +12,41 @@ const  autenticar = () => {
   // Autentificação
   const API_URL = 'URL da API'
   const url = API_URL + 'user=' + username.value + '&senha=' +password.value
-  //const  autenticar = async () => {
-  //   const response =  (await fetch(url)).json()
+  //axios.post(url)
+  //  .then(( ))
   //}
   //criptografar senha - checar qual
 
+  const resp: any = {"token": "1234",
+                "nome" : username.value + ' sobrenome',
+                'tipo' : 1}
+
+  const resp2: any = {"token": "1234",
+                "nome" : username.value + ' sobrenome',
+                'tipo' : 2}            
   
 
   if (username.value === 'teste' && password.value === 'teste') {
     console.log('Autenticado!')
-    localStorage.setItem('token','1234')
-    localStorage.setItem('nome','João de Maria da Silva')
+    for (const key in resp) {
+      if (resp.hasOwnProperty(key)) {
+        localStorage.setItem(key, JSON.stringify(resp[key]));
+      }
+    }
     router.push({name:'perfil'}) 
+
     
    
-  } 
+  }
+  else if (username.value === 'teste1' && password.value === 'teste'){
+    console.log('Autenticado!')
+    for (const key in resp2) {
+      if (resp.hasOwnProperty(key)) {
+        localStorage.setItem(key, JSON.stringify(resp2[key]));
+      }
+    }
+    router.push({name:'perfil'}) 
+  }
   else{
     incorreto.value = true
   }
@@ -46,7 +67,7 @@ const  autenticar = () => {
 
   <div class="content"> 
 
-   <h2>Sign In</h2> 
+   <h2>Login</h2> 
 
    <div class="error"> 
 
@@ -58,17 +79,19 @@ const  autenticar = () => {
 
     <div class="inputBox"> 
 
-     <input v-model="username" type="text" required> <i>Username</i> 
+      <label for="username">Usuario</label>
+     <input v-model="username" id="username" type="text" required>  
 
     </div> 
 
     <div class="inputBox"> 
 
-     <input v-model="password" type="password" required> <i>Password</i> 
+      <label for="senha">Senha</label> 
+     <input v-model="password" id="senha" type="password" required> 
 
     </div> 
 
-    <div class="links"> <a href="#">Forgot Password</a> <a @click="router.push({name:'signup'})">Signup</a> 
+    <div class="links"> <a style="color: black;" href="#">Esqueceu a senha?</a> <a @click="router.push({name:'signup'})">Signup</a> 
 
     </div>
 
@@ -106,7 +129,7 @@ body
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: var(--secondarycolor);
+  background: var(--background);
 }
 section 
 {
@@ -121,17 +144,6 @@ section
   overflow: hidden;
 }
 
-@keyframes animate 
-{
-  0%
-  {
-    transform: translateY(-100%);
-  }
-  100%
-  {
-    transform: translateY(100%);
-  }
-}
 section span 
 {
   position: relative;
@@ -139,7 +151,7 @@ section span
   width: calc(6.25vw - 2px);
   height: calc(6.25vw - 2px);
   background: var(--secondarycolor);
-  z-index: 2;
+
   transition: 1.5s;
 }
 section span:hover 
@@ -152,8 +164,8 @@ section .signin
 {
   position: absolute;
   width: 400px;
-  background: #222;  
-  z-index: 1000;
+  background: var(--secondarycolor);  
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -169,7 +181,7 @@ section .signin .content
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
 }
 section .signin .content h2 
 {
@@ -180,8 +192,12 @@ section .signin .content h2
 
 section .signin .content .error
 {
-  background-color: #333;
+  background-color: rgb(231, 105, 105);
   text-transform: uppercase;
+  color: black  ;
+  font-weight: bold;
+  padding: 0 8px;
+  border-radius: 3px;
 }
 
 
@@ -197,16 +213,22 @@ section .signin .content .form .inputBox
   position: relative;
   width: 100%;
 }
+
+section .signin .content .form .inputBox label
+{
+  color: var(--fontcolortext);
+  font-weight:bold;
+}
 section .signin .content .form .inputBox input 
 {
   position: relative;
   width: 100%;
-  background: #333;
+  background: var(--background);
   border: none;
   outline: none;
-  padding: 25px 10px 7.5px;
+  padding: 10px 7.5px;
   border-radius: 4px;
-  color: #fff;
+  color: var(--fontcolortext);
   font-weight: 500;
   font-size: 1em;
 }

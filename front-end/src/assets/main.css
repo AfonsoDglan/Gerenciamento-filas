@@ -3,8 +3,11 @@
 :root{
   --primarycolor:#00995d;
   --secondarycolor: #fff;
+  --background: #bdbaba;
 
   --hoverprimarycolor: #01c577;
+  --fontcolortitle:hsla(160, 100%, 37%, 0.2);
+  --fontcolortext: black;
 }
 
 #app {
