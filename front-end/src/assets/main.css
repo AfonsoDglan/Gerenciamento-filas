@@ -1,0 +1,35 @@
+@import './base.css';
+
+:root{
+  --primarycolor:#00995d;
+  --secondarycolor: #fff;
+  --background: #bdbaba;
+
+  --hoverprimarycolor: #01c577;
+  --fontcolortitle:hsla(160, 100%, 37%, 0.2);
+  --fontcolortext: black;
+}
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+
+  font-weight: normal;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  transition: 0.4s;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+    border-radius: 4px;
+    color: rgb(38, 250, 179);
+  }
+}
+
+
