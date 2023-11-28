@@ -10,7 +10,7 @@ TIPO_PESSOA_CHOICES = (
 class Pessoa(models.Model):
     cpf = models.CharField('CPF', max_length=11, null=False, unique=True)
     nomeCompleto = models.CharField('Nome Completo', max_length=255)
-    user = models.ForeignKey(User, null=False, editable=True, on_delete=models.PROTECT) # noqa(E501)
+    user = models.ForeignKey(User, null=False, unique=True, editable=True, on_delete=models.PROTECT) # noqa(E501)
     tipo = models.IntegerField('Tipo pessoa', choices=TIPO_PESSOA_CHOICES, null=False) # noqa(E501)
     sala = models.CharField('Sala', max_length=120, null=False, unique=True)
 

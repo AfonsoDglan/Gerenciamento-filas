@@ -36,7 +36,7 @@ ESTADO_CHOICES = (
 
 
 class Triagem(models.Model):
-    atendente = models.ForeignKey(Pessoa, editable=False, on_delete=models.PROTECT) # noqa(E501)
+    atendente = models.ForeignKey(User, on_delete=models.PROTECT) # noqa(E501)
     nomePaciente = models.CharField(max_length=220)
     estado = models.IntegerField('Estado da Triagem', choices=ESTADO_CHOICES, null=False) # noqa(E501)
     senha = models.CharField(max_length=20, null=True, unique=True)
@@ -50,7 +50,7 @@ class Triagem(models.Model):
     pressaoArterial = models.IntegerField()
     temperatura = models.FloatField()
     fraturasExpostas = models.IntegerField('Fraturas Expostas', choices=FRATURAS_CHOICES, null=True)  # noqa(E501)
-    quimadurasGraves = models.ImageField('Queimaduras Graves.', choices=QUEIMADURAS_CHOICES)  # noqa(E501)
+    quimadurasGraves = models.IntegerField('Queimaduras Graves.', choices=QUEIMADURAS_CHOICES)  # noqa(E501)
     classificacao = models.IntegerField('Classificacao', choices=CLASSIFICACAO_CHOICES, null=True)  # noqa(E501)
 
     class Meta:

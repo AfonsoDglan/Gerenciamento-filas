@@ -1,1 +1,1 @@
-from fila.consumers.senhasConsumers import SenhaConsumer  # noqa: F401
+from fila.consumers.painelConsumers import PainelConsumer  # noqa: F401
