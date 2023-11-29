@@ -36,7 +36,7 @@ ESTADO_CHOICES = (
 
 
 class Triagem(models.Model):
-    atendente = models.ForeignKey(User, on_delete=models.PROTECT) # noqa(E501)
+    atendente = models.ForeignKey(Pessoa, on_delete=models.PROTECT) # noqa(E501)
     nomePaciente = models.CharField(max_length=220)
     estado = models.IntegerField('Estado da Triagem', choices=ESTADO_CHOICES, null=False) # noqa(E501)
     senha = models.CharField(max_length=20, null=True, unique=True)
@@ -59,6 +59,3 @@ class Triagem(models.Model):
 
     def __str__(self):
         return self.nomePaciente
-
-    # def get_absolute_url(self):
-    #    return reverse("Triagem_detail", kwargs={"pk": self.pk})

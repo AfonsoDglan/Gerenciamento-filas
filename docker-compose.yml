@@ -14,12 +14,14 @@ services:
       - db
   db:
     image: postgres:15
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=afonso
       - POSTGRES_PASSWORD=password123
       - POSTGRES_DB=django_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
   front:
     build: ./front-end
     ports:
@@ -29,11 +31,9 @@ services:
   sgbd:
     image: dpage/pgadmin4
     ports:
-      - "5432:80"
+      - "5433:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: dglan2003@gmail.com
       PGADMIN_DEFAULT_PASSWORD: password123
-
 volumes:
   postgres_data:
-  back-end:
