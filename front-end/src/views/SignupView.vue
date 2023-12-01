@@ -17,18 +17,7 @@ const submit = () => {
 </script>
 
 <template>
-
-<head> 
-
-<meta charset="UTF-8"> 
-
-<title>CodePen - Animated Login Form using Html &amp; CSS Only</title> 
-
-<link rel="stylesheet" href="./style.css"> 
-
-</head> 
-
-<body> <!-- partial:index.partial.html --> 
+<body> 
 
 <section> 
 
@@ -70,8 +59,9 @@ const submit = () => {
       <label for="atuacao">Area de Atuação</label><br>
       <select  v-model="area" id="atuacao">
         <option  disabled value="">Selecione</option>
-        <option>Atendente</option>
+        <option>Atendendimento</option>
         <option>Triagem</option>
+        <option>Consulta</option>
       </select>
      
     </div> 
@@ -134,9 +124,9 @@ body
 {
   position: relative;
   top: 10px;  
-  width: 50vw;
+  width: 80vw;
   background: var(--secondarycolor);  
-  z-index: 1;
+
   display: flex;
   justify-content: center;
   align-items: center;

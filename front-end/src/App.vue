@@ -38,7 +38,6 @@ router.beforeEach((to,from) => {
         <RouterLink class="navbtn" to="/">Home</RouterLink>
         <RouterLink class="navbtn" to="/fila">Fila</RouterLink>
         <RouterLink class="navbtn" to="/perfil">Perfil</RouterLink>
-        <RouterLink class="navbtn" to="/about">About</RouterLink>
         <RouterLink class="navbtn" to="/triagem">Triagem</RouterLink>
        
         
@@ -55,6 +54,15 @@ router.beforeEach((to,from) => {
 
   <RouterLink class="navbtn todapag" v-if="Logado && tipo === '1'" to="/addfila">+</RouterLink>
   <RouterLink class="navbtn todapag" v-if="Logado && tipo === '2'" to="/triagem">+</RouterLink>
+
+  <div class="footer">
+	<div class="footcol">Atendimento</div>
+	<div class="footcol">Fila</div>
+	<div class="footcol">Traigem</div>
+	<div class="footcol">Social</div>
+	<div class="footcol">Noticias</div>
+
+  </div>
   
 
 </template>
@@ -145,6 +153,7 @@ nav a:first-of-type {
   position: fixed;
   bottom: 5%;
   left:2%;
+  z-index: 10;
   
 
   font-weight: bold;
@@ -156,6 +165,29 @@ nav a:first-of-type {
   border-radius: 100%;
   
 }
+
+
+.footer{
+  position: relative;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   height: 5%;
+   background-color: var(--secondarycolor);
+   color: var(--fontcolortext);
+   text-align: center;
+
+   display: flex;
+   justify-content: space-evenly;
+   
+}
+
+.footcol{
+	height: 100%;
+	background-color: var(--secondarycolor);
+	width: auto;
+}
+
 
 
 </style>

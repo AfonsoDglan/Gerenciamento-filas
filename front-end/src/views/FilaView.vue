@@ -32,10 +32,12 @@ const edit = ref(false)
                 <h2>Fila</h2>
                 <table>
                         <tr>
+                            <th>Senha</th>
                             <th>Nome</th>
                             <th>Tipo</th>
                         </tr>
                         <tr v-for="item in fila">
+                            <td>senha</td>
                             <td>{{ item.nome }}</td>
                             <td>{{ item.tipo }}</td>
                         </tr>

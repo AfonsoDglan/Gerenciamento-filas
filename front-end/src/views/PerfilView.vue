@@ -102,7 +102,7 @@ body
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: auto !important;
   box-sizing: border-box;
   background: var(--background);
   margin: 0;
@@ -114,7 +114,7 @@ body
 
 .page{
   position: relative;
-  top: 10px;
+  margin-top: 10px;
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
@@ -172,7 +172,7 @@ body
   display: flex;
   border-bottom: 1px solid  gray;
   margin: 0 5px;
-  padding: 5px 0 12px;
+  padding: 8px 0;
 }
 .dtl{
   font-weight: bold;
@@ -186,7 +186,8 @@ body
   background-color: var(--secondarycolor);
   color: var(--fontcolortext);
   width: 100%;
-  height: 1400px;
+  height: 200px;
+  border-radius: 4px
   
 }
 

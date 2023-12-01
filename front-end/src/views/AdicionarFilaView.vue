@@ -1,15 +1,60 @@
 <script setup lang="ts">
+import router from '@/router';
+import axios from 'axios';
 import { ref } from 'vue'
+import type { Ref } from 'vue'
+//dados
+const cpf: Ref<string>  = ref('')
+const NomePaciente: Ref<string>  = ref('')
+const nasc: Ref<string>  = ref('')
+const sexo: Ref<string>  = ref('')
+const tipo: Ref<'Convencional' | 'Preferencial' | ''> = ref('')
+const data = {	cpf:cpf,
+				NomePaciente: NomePaciente,
+				Nasc: nasc,
+				sexo: sexo,
+				tipo: tipo}
+//auxiliares
+const invalido = ref(false)
 
-const cpf = ref('')
-const username = ref('')
-const nasc = ref('')
-const sexo = ref('')
-const tipo = ref('')
+const urls = {"Convencional":'http://127.0.0.1:8000/senhaNormal/',
+			"Preferencial":'http://127.0.0.1:8000/senhaPrioritaria/',
+			"": ''}
 
 const confirmar = () => {
-  console.log('Logging in with:',nasc.value);
+
+	if (FormularioPreenchido()) {
+		const url:string = urls[tipo.value]
+		console.log(url)
+		axios.get(url)
+		.then((response) =>{
+			if (response.status === 201){
+				const senha = response.data
+                console.log(senha)	
+		}})
+		.catch( (erro) =>
+			console.log(erro))
+	} else {
+		console.log('invalido')
+		invalido.value = true
+	}
+  	
 };
+
+function FormularioPreenchido() {
+	let valid = true
+	Object.values(data).forEach( (item) => {
+		if (item.value === '') {
+			valid = false
+	}
+	})
+	return valid
+}
+
+function sumir(){
+	invalido.value = false
+}
+
 
 
 
@@ -28,25 +73,27 @@ const confirmar = () => {
 
    <h2>Cadastro</h2> 
 
+   <div v-if="invalido" class="invalido" @click="sumir()">Preencha Todos os Campos</div>
+
    <div class="form"> 
 
     <div class="inputBox"> 
 
-      <label for="cpf">CPF</label> 
+      <label for="cpf">CPF*</label> 
       <input v-model="cpf" id='cpf' type="text" required> 
 
     </div> 
 
     <div class="inputBox"> 
-      <label for="nome">Nome Completo</label> 
-      <input v-model="username" id="nome" type="text" required> 
+      <label for="nome">Nome Completo*</label> 
+      <input v-model="NomePaciente" id="nome" type="text" required> 
 
     </div> 
 
     <div class="inputBox freqs">
 
         <div class="inputBox freq"> 
-        <label for="idade">Data de Nascimento</label> 
+        <label for="idade">Data de Nascimento*</label> 
         <input v-model="nasc" id="idade" type="date" required>
 
     </div> 
@@ -134,7 +181,7 @@ body
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 h2 
 {
@@ -204,7 +251,7 @@ section .box .content .form .inputBox label
 
 }
 
-.box .content .form .inputBox input:focus{
+.box .content .form .inputBox input:not([type="submit"]):focus{
     border: 2px solid var(--primarycolor) ;
 }
 
@@ -225,6 +272,14 @@ section .box .content .form .inputBox label
 
 .box .content .form .inputBox input[type="submit"]:hover{
   background-color: var(--hoverprimarycolor)
+}
+
+.invalido{
+	background-color: rgb(255, 90, 90);
+	color: black;
+	padding: 10px;
+	border-radius: 4px;
+	font-weight: bold;
 }
 
 </style>

@@ -168,7 +168,7 @@ section .signin
 
   display: flex;
   justify-content: center;
-  align-items: center;
+
   padding: 40px;
   border-radius: 4px;
   box-shadow: 0 15px 35px rgba(0,0,0,9);

@@ -2,10 +2,6 @@
 import { ref } from 'vue'
 import axios from 'axios'
 
-
-
-const api = 'url da api'
-
 const atendente = ref(localStorage.getItem('nome'))
 if (atendente.value) {
   atendente.value = atendente.value.replace(/['"]+/g, '')
@@ -17,7 +13,7 @@ const sexo = ref('')
 const queixa = ref('')
 const historico = ref('')
 const observacoes = ref('')
-const dor = ref(5)
+const dor = ref(0)
 const freqcard = ref('')
 const freqresp = ref('')
 const freqarte = ref('') 
@@ -26,33 +22,75 @@ const fratura = ref('')
 const queimadura = ref('')
 const classe = ref('')
 
-
-
+const data = [	atendente,
+				nomePaciente,
+				estado,
+				senha,
+				senha,
+				sexo,
+				queixa,
+				historico,
+				observacoes,
+				dor,
+				freqcard,
+				freqresp,
+				freqarte, 
+				temperatura,
+				fratura,
+				queimadura,
+				classe ]
 
 const confirmar = () => {
-    console.log()
-    axios.post(api,{atendente: atendente,
-                    nomePaciente: nomePaciente,
-                    estado: estado,
-                    senha: senha,
-                    sexo: sexo,
-                    queixaPrincipal: queixa,
-                    historicoBreve : historico,
-                    observacaoObjetiva : observacoes,
-                    dor: dor,
-                    frequenciaCardiaca : freqcard ,
-                    frequenciaRespiratoria : freqresp,
-                    pressaoArterial : freqarte,
-                    temperatura : temperatura,
-                    fraturasExpostas : fratura,
-                    quimadurasGraves : queimadura, 
-                    classificacao : classe,
-                    })
+	estado.value = 'atendido'
+
+  if (FormularioPreenchido()){
+	const url = 'http://127.0.0.1:8000/triagem/'
+	console.log()
+   	axios.post(url,{atendente: atendente.value,
+                   nomePaciente: nomePaciente.value,
+                   estado: estado.value,
+                   senha: senha.value,
+                   sexo: sexo.value,
+                   queixaPrincipal: queixa.value,
+                   historicoBreve : historico.value,
+                   observacaoObjetiva : observacoes.value,
+                   dor: dor.value,
+                   frequenciaCardiaca : freqcard .value,
+                   frequenciaRespiratoria : freqresp.value,
+                   pressaoArterial : freqarte.value,
+                   temperatura : temperatura.value,
+                   fraturasExpostas : fratura.value,
+                   quimadurasGraves : queimadura.value,
+                   classificacao : classe.value,
+                   })
+  } else {
+	invalido.value = true
+	console.log('invalido')
+  }
+  
+
+
+}
+
+function FormularioPreenchido() {
+	let valid = true
+	Object.values(data).forEach( (item) => {
+		if (item.value === '') {
+			valid = false
+	}
+	})
+	return valid
+}
+const invalido = ref(false)
+function sumir(){
+  invalido.value = false
 }
 </script>
 
 <template>
     <body>
+        <div class="invalido" @click="sumir" v-if="invalido"> Preencha todos os campos.
+		<p class="closetag">clique para fechar</p></div>
 
         <div class="box">
 
@@ -91,12 +129,12 @@ const confirmar = () => {
 
                 <div class="inputBox"> 
                     <label for="historico">Historico</label> 
-                    <textarea v-model="historico" id="historico" type="text" required> </textarea>
+                    <textarea v-model="historico" id="historico" type="text" required placeholder="Nada a declarar"> </textarea>
                 </div> 
 
                 <div class="inputBox"> 
                     <label for="observacoes">Observações</label> 
-                    <textarea v-model="observacoes" id="observacoes" type="text" required> </textarea>
+                    <textarea v-model="observacoes" id="observacoes" type="text" required placeholder="Nada a declarar"> </textarea>
                 </div> 
 
                 <div class="inputBox"> 
@@ -212,10 +250,10 @@ body
 .box  
 {
   position: relative;
-  margin-top: 10px;
+  margin: 10px 0;
   width: 70vw;
   background: var(--secondarycolor);  
-  z-index: 1;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -356,6 +394,35 @@ datalist {
   font-weight: bold;
   padding:0 2px;
  
+}
+
+.invalido{ 
+  position:fixed;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 35%;
+  height: 30%;
+  top: 40%;
+  padding-top: 22px;
+  gap: 5px;
+
+
+  background-color: var(--secondarycolor);
+
+  border: 10px solid rgb(231, 105, 105);;
+  border-radius: 8px;
+
+
+  font-weight: bold;
+  font-size: 20px;
+  color: black;
+}
+.invalido .closetag{
+	font-size: 15px;
+	color: gray;
 }
 
 
