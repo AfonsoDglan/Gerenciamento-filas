@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import router from '@/router';
+import axios, { type AxiosResponse } from 'axios';
 import { ref } from 'vue'
 
 const cpf = ref('')
@@ -8,9 +10,35 @@ const email = ref('')
 const sexo = ref('')
 const area = ref('')
 
-const submit = () => {
-  console.log('Logging in with:', username.value, password.value, cpf.value,email.value,sexo.value,area.value);
+const invalido = ref(false)
+const alma =ref(false)
+
+const confirmar = () => {
+
+    const data = {  cpf: cpf.value,
+                    username: username.value,
+                    password: password.value,
+                    email: email.value,
+                    sexo: sexo.value,
+                    area: area.value}
+    const url = 'http://127.0.0.1:8000/alugma coisa aqui/'
+    axios.post(url,data)
+    .then( (response:  AxiosResponse) => {
+        if (response.status === 201){
+            router.push({name:'perfil'})
+        }
+    })
+    .catch( (erro) => {
+        console.log(erro)
+        invalido.value = true
+    })
+    
 };
+
+
+function sumir(){
+	invalido.value = false
+}
 
 
 
@@ -18,6 +46,9 @@ const submit = () => {
 
 <template>
 <body> 
+
+    <div v-if="invalido" class="invalido" @click="sumir()">Preencha Todos os Campos
+        <p class="closetag">clique para fechar</p></div>
 
 <section> 
 
@@ -54,35 +85,48 @@ const submit = () => {
 
     </div> 
 
-    <div class="inputBox"> 
+    <div class="inputBox freqs"> 
 
-      <label for="atuacao">Area de Atuação</label><br>
-      <select  v-model="area" id="atuacao">
-        <option  disabled value="">Selecione</option>
-        <option>Atendendimento</option>
-        <option>Triagem</option>
-        <option>Consulta</option>
-      </select>
-     
-    </div> 
-    <div class="inputBox"> 
+        <div class="inputBox"> 
 
-      <label for="sexo">Sexo</label><br>
-      <select  v-model="sexo" id="sexo">
-        <option  disabled value="">Selecione</option>
-        <option>Masculino</option>
-        <option>Feminino</option>
-        <option>Outro</option>
-      </select>
-     
-    </div> 
+            <label for="atuacao">Area de Atuação</label><br>
+            <select  v-model="area" id="atuacao">
+            <option  disabled value="">Selecione</option>
+            <option>Atendendimento</option>
+            <option>Triagem</option>
+            <option>Consulta</option>
+            </select>
+
+        </div> 
+
+        <div class="inputBox"> 
+
+            <label for="sexo">Sexo</label><br>
+            <select  v-model="sexo" id="sexo">
+            <option  disabled value="">Selecione</option>
+            <option>Masculino</option>
+            <option>Feminino</option>
+            <option>Outro</option>
+            </select>
+
+        </div> 
+
+    </div>
+    <div class="termos" >
+        <input type="checkbox" id="termos" v-model="alma">
+        <label for="termos">Sim, eu aceito com os termos e condições</label>
+    </div>
+
+
+
+   
 
   
 
 
     <div class="inputBox cadastrar"> 
 
-     <input @click="submit" type="submit" value="Cadastrar"> 
+     <input @click="confirmar" type="submit" value="Cadastrar" :disabled="!alma"> 
 
     </div> 
 
@@ -101,9 +145,7 @@ const submit = () => {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
-:root{
-  --primarycolor:#00995d;
-}
+
 *
 {
   margin: 0;
@@ -144,6 +186,25 @@ body
   flex-direction: column;
   gap: 30px;
 }
+
+.freqs
+{
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  width: 100%;
+  flex-direction: row;
+ 
+  
+}
+
+.freq
+{
+  position: relative;
+  width: 40%;
+}
+
+
 .signin .content h2 
 {
   font-size: 2em;
@@ -162,6 +223,7 @@ body
 {
   position: relative;
   width: 100%;
+
 }
 section .signin .content .form .inputBox label
 {
@@ -177,14 +239,14 @@ section .signin .content .form .inputBox label
   outline: none;
   padding:  12px;
   border-radius: 4px;
-  color: #fff;
+  color: var(--fontcolortext);
   font-weight: 500;
   font-size: 1em;
 }
 .signin .content .form .inputBox select 
 {
   position: relative;
-  min-width: 150px;
+    width: 50%;
   background: var(--background) ;
   border: none;
   outline: none;
@@ -279,6 +341,49 @@ input[type="submit"]:active
 
 .signin .content .form .inputBox input[type="submit"]:hover{
   background-color: var(--hoverprimarycolor)
+}
+
+.signin .content .form .inputBox input[type="submit"]:disabled{
+  background-color:gray
+}
+
+.termos{
+    color: var(--fontcolortext);
+}
+
+.termos label{
+    padding-left: 5px\   ;
+}
+
+
+
+.invalido{ 
+  position:fixed;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 35%;
+  height: 30%;
+  top: 40%;
+  padding-top: 20px;
+  gap: 5px;
+
+
+  background-color: var(--secondarycolor);
+
+  border: 10px solid rgb(231, 105, 105);;
+  border-radius: 8px;
+
+
+  font-weight: bold;
+  font-size: 20px;
+  color: black;
+}
+.invalido .closetag{
+	font-size: 15px;
+	color: gray;
 }
 
 </style>
