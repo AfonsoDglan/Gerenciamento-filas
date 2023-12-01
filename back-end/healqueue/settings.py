@@ -48,7 +48,7 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    ]
+    ],
 }
 
 TEMPLATES = [
@@ -68,7 +68,7 @@ TEMPLATES = [
 ]
 
 ASGI_APPLICATION = "healqueue.asgi.application"
-#WSGI_APPLICATION = "healqueue.wsgi.application"
+#  WSGI_APPLICATION = "healqueue.wsgi.application"
 
 CHANNEL_LAYERS = {
     "default": {
