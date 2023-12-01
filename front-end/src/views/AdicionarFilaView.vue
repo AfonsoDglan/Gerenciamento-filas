@@ -27,13 +27,13 @@ const confirmar = () => {
 		const url:string = urls[tipo.value]
 		console.log(url)
 		axios.get(url)
-		.then((response) =>{
-			if (response.status === 201){
-				const senha = response.data
-                console.log(senha)	
-		}})
-		.catch( (erro) =>
-			console.log(erro))
+            .then((response) =>{
+                if (response.status === 201){
+                    const senha = response.data
+                    console.log(senha)	
+            }})
+            .catch( (erro) =>
+                console.log(erro))
 	} else {
 		console.log('invalido')
 		invalido.value = true
