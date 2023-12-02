@@ -14,9 +14,8 @@ class TriagemViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            serializer.validated_data['atendente'] = Pessoa.objects.get(user__username=request.user)
-            serializer.validated_data['estado'] = 2
-            serializer.validated_data['senha'] = "senha1"
+            serializer.validated_data['atendente'] = Pessoa.objects.get(user__username=request.user)  # noqa: E501
+            serializer.validated_data['senha'] = "senha7"
             serializer.validated_data['classificacao'] = 5
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

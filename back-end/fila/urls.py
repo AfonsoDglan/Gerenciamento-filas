@@ -1,6 +1,6 @@
 from rest_framework.routers import DefaultRouter
 from django.urls import path
-from fila.views import (SenhaNomalViewSet, SenhaPrioritariaViewSet,
+from fila.views import (SenhasViewSet, ProximaSenhaViewSet,
                         TriagemViewSet, PessoaViewSet,
                         PainelViewSet, ConsultaViewSet)
 from django.http import HttpResponse
@@ -11,6 +11,7 @@ router.register("triagem", TriagemViewSet, basename="triagem")
 router.register("pessoa", PessoaViewSet, basename="pessoa")
 router.register("painel", PainelViewSet, basename="painel")
 router.register("consulta", ConsultaViewSet, basename="consulta")
+router.register("proxima", ProximaSenhaViewSet, basename="proxima")
 urlpatters = router.urls
 
 
@@ -20,7 +21,6 @@ def teste(request):
 
 urlpatterns = [
     path("", teste),
-    path("senhaNormal/", SenhaNomalViewSet.as_view({'get': 'list'})),
-    path("senhaPrioritaria/", SenhaPrioritariaViewSet.as_view({'get': 'list'})),
+    path("senha/", SenhasViewSet.as_view({'get': 'list'})),
 ]
 urlpatterns += router.urls

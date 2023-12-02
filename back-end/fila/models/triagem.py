@@ -29,16 +29,11 @@ CLASSIFICACAO_CHOICES = (
     (4, 'Pouco Urgente'),
     (5, 'Não Urgente')
 )
-ESTADO_CHOICES = (
-    (1, 'espera'),
-    (2, 'atendido')
-)
 
 
 class Triagem(models.Model):
     atendente = models.ForeignKey(Pessoa, on_delete=models.PROTECT) # noqa(E501)
     nomePaciente = models.CharField(max_length=220)
-    estado = models.IntegerField('Estado da Triagem', choices=ESTADO_CHOICES, null=False) # noqa(E501)
     senha = models.CharField(max_length=20, null=True, unique=True)
     sexo = models.IntegerField('Sexo', choices=SEXO_CHOICES, null=True)
     queixaPrincipal = models.TextField('Queixa', blank=True, null=True)
