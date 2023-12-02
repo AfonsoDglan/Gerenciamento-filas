@@ -19,7 +19,6 @@ function senha(tipo:string){
     .catch( (erro) => {
         console.log(erro) 
         //localStorage.setItem('senha','c1')
-        router.push({name: 'senha'})
         }
     )
 }
