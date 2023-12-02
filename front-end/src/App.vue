@@ -39,6 +39,7 @@ router.beforeEach((to,from) => {
         <RouterLink class="navbtn" to="/fila">Fila</RouterLink>
         <RouterLink class="navbtn" to="/perfil">Perfil</RouterLink>
         <RouterLink class="navbtn" to="/triagem">Triagem</RouterLink>
+        <RouterLink class="navbtn" to="/senha">Senha</RouterLink>
        
         
         <RouterLink v-if="!Logado" class="navbtn login" to="/login">Login</RouterLink>

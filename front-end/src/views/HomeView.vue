@@ -1,6 +1,28 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import router from '@/router';
+import axios from 'axios';
+
+const tipo = ref('n')
+
+function senha(tipo:string){
+    const url = 'http://127.0.0.1:8000/senha?tipo=' + tipo
+    console.log(url)
+    axios.get(url)
+    .then( ( response ) => {
+        if (response.status === 201) {
+            localStorage.setItem('senha',response.data['senha'])
+            //localStorage.setItem('senha','c1')
+            router.push({name: 'senha'} )
+        }
+    })
+    .catch( (erro) => {
+        console.log(erro) 
+        //localStorage.setItem('senha','c1')
+        router.push({name: 'senha'})
+        }
+    )
+}
 </script>
 
 <template>
@@ -15,16 +37,17 @@ import router from '@/router';
             <div class="instruções">
                 <h2>Para ser atendido, pressione uma das opções abaixo </h2>
                 <div class="butoes"> 
-                    <button class=" btn normal">Senha Normal</button>
-                    <button class="btn prefe">Senha Prefenrencial</button>
+                    <button class="btn normal" @click="senha('n')">Senha Normal</button>
+                    <button class="btn prefe" @click="senha('p')">Senha Prefenrencial</button>
+                </div>
+                <div class="info">
+                    <h2>Atenção!</h2>
+                    <img alt="Vue logo" class="logo" src="@\assets\preferencial.webp"/>
+
                 </div>
             </div>
 
-            <div class="info">
-                <h2>Atenção!</h2>
-                <img alt="Vue logo" class="logo" src="@\assets\preferencial.webp"/>
-
-            </div>
+            
         
       </div>
   </div>
