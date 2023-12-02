@@ -8,9 +8,23 @@ import router from '@/router';
   <div class="page">
       	<div class="box">
         	<div class="welcome">
-        	 	 <h2>Bem-vindo ao App </h2>
-         		 <h2>Onde Sua Saúde é a Nossa Prioridade! </h2>
-          	</div>
+        	 	<h2>Bem-vindo ao App </h2>
+         		<h2>Onde Sua Saúde é a Nossa Prioridade! </h2>
+            </div>
+            
+            <div class="instruções">
+                <h2>Para ser atendido, pressione uma das opções abaixo </h2>
+                <div class="butoes"> 
+                    <button class=" btn normal">Senha Normal</button>
+                    <button class="btn prefe">Senha Prefenrencial</button>
+                </div>
+            </div>
+
+            <div class="info">
+                <h2>Atenção!</h2>
+                <img alt="Vue logo" class="logo" src="@\assets\preferencial.webp"/>
+
+            </div>
         
       </div>
   </div>
@@ -24,7 +38,7 @@ body{
   display: flex;
   justify-content: center;
 
-  background-color: var(--background);
+    background-color: var(--background);
 
 
     height: auto !important;
@@ -56,9 +70,15 @@ body{
   width: 100%;
   height: 60%;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:2px;
+
   margin: 1% 1%;
   border-radius: 4px;
-  font-size: 16px;
+
 }
 
 .welcome{
@@ -74,5 +94,74 @@ body{
 	background-color: var(--primarycolor);
 
 	color: var(--secondarycolor);
+}
+
+.instruções{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    border: 5px solid var(--primarycolor);
+    border-radius: 4px;
+
+    width: 100%;
+    
+}
+
+
+
+.butoes{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 10px 0;
+
+}
+
+.btn{
+    width: 30%;
+    height: 3em;
+    border-radius: 4px;
+    font-size: 20px;
+    min-width: 150px;
+}
+
+.normal{
+    background-color: #0853bd;
+    color: var(--secondarycolor);
+    
+}
+
+.normal:hover{
+    background-color: #0d71ff;
+}
+
+.prefe{
+    background-color: #6b1114 ;
+    color: var(--secondarycolor);
+}
+.prefe:hover{
+    background-color: #fc262d;
+}
+
+.info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    width: 600px;
+    border: 4px solid var(--fontcolortext);
+    border-radius: 4px;
+    
+}
+
+.info h2{
+    display: flex;
+    justify-content: center;
+
+    background-color: var(--background);
+    width: 600px;
 }
 </style>

@@ -1,48 +1,71 @@
 <script setup lang="ts">
+import axios from 'axios';
 import { ref } from  'vue'
+import type { Ref } from  'vue'
 
-const fila = ref([  {nome:'ana',tipo:'convencional'},
-                    {nome:'bia',tipo:'prefenrencial'},
-                    {nome:'carlo',tipo:'convencional'},
-                    {nome:'diego',tipo:'convencional'},
-                    {nome:'eric',tipo:'convencional'},
-                    {nome:'fabio',tipo:'prefenrencial'},
-                    {nome:'gabriel',tipo:'convencional'},
-                ])
 
-const edit = ref(false)
+
+const fila = ref([  {chamado:'C1',sala:'Triagem 1'},
+                    {chamado:'P1',sala:'Triagem 2'},
+                    {chamado:'C2',sala:'Triagem 3'},
+                    {chamado:'C3',sala:'Triagem 2'},
+                    {chamado:'P2',sala:'Triagem 3'},
+])
+
+const hora: Ref<Date | string> = ref(new Date())
+displayCurrentDate()
+
+//const url = 'http://127.0.0.1:8000/painel/'
+
+//axios.get(url)
+//.then((response) => {
+//    if (response.status === 200) {
+//        fila.value = response.data
+//    }
+//})
+//.catch( (erro) => {
+//    console.log(erro)
+//})
+
+function displayCurrentDate() {
+    const locale = 'pt-BR';
+    
+    const currentDate = new Date();
+    hora.value = currentDate.toLocaleString(locale,{year: 'numeric', month: 'long',day: 'numeric', hour: 'numeric', minute: 'numeric'});
+    
+    // Call the function every second
+    setTimeout(displayCurrentDate, 1000);
+    
+}
 
 </script>
 
 <template>
 <body>
     <div class="page">
-        <div class="box">
-          <div class="callbox">
-              {{ fila[0].nome }}
-          </div>
-          <div class="callbox">
-              Primeiro lugar
-          </div>
-            
-        </div>
-
-        <div class="box">
-            <div class="tablecard">
-                <h2>Fila</h2>
-                <table>
-                        <tr>
-                            <th>Senha</th>
-                            <th>Nome</th>
-                            <th>Tipo</th>
-                        </tr>
-                        <tr v-for="item in fila">
-                            <td>senha</td>
-                            <td>{{ item.nome }}</td>
-                            <td>{{ item.tipo }}</td>
-                        </tr>
-                </table>
+        <div class="painel">
+            <div class="boxatual"> 
+                <div class="titulo">Atual</div>
+                <div class="atual">
+                    <div>Senha:{{  fila[0].chamado }}</div>
+                    <div>Sala:{{  fila[0].sala }}</div>
+                </div>
+                <div class="hora">{{ hora }}</div>
             </div>
+
+            <div class="boxanterior"> 
+                <div class="titulo">Ultimas Chamadas</div>
+                <div class="anterior">
+                    <div class="item" v-for="item in fila.slice(1,)">
+                        <div class="itemrow"><div>Senha</div> <div>{{  item.chamado }}</div> </div>
+                        <div class="itemrow"><div>Sala</div> <div>{{  item.sala }}</div> </div>
+                    </div>
+
+                    
+                </div>
+
+            </div> 
+
         </div>
 
             
@@ -59,7 +82,6 @@ body
   font-family: 'Quicksand', sans-serif;
   display: flex;
   justify-content: center;
-  align-items: center;
   height: 100%;
   box-sizing: border-box;
   background: var(--background);
@@ -71,26 +93,132 @@ body
 
 .page{
   position: relative;
-  top: 10px;
+  margin-top: 10px;
+
   display: flex;
   justify-content: space-evenly;
-  flex-wrap: wrap;
+
   height: 100%;
   width: 80vw;
-  background-color: var(--background);
+
+  background-color: var(--secondarycolor);
   border-radius: 4px;
 }
 
-.box{
-  position: relative;
-  display: flex;
-  width: 100%;
-  height: 60%;
-  margin: 0 1% 1%;
-  gap: 1%;
- 
-  border-radius: 4px;
+.painel{
+    width: auto-fill;
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+
+    margin: 5px;
+    border-radius: 4px;
+
+    gap: 5px;
+
 }
+
+.boxatual{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    
+
+    height: 100%;
+    width: 70%;
+}
+
+.boxanterior{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    
+
+    height: 100%;
+    width: 30%;
+}
+
+.titulo{
+    position: relative;
+    top:0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 10%;
+    background-color: var(--background);
+    color: var(--fontcolortext);
+    font-size:2vw;
+
+
+}
+.atual{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+
+    height: 100%;
+    width: 100%;
+
+
+    background-color: var(--primarycolor);
+
+    color: var(--secondarycolor);
+
+    font-size: 5vw;
+}
+
+.anterior{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+
+    height: 100%;
+    width: 100%;
+
+    background-color: var(--secondarycolor);
+    border-radius: 4px;
+}
+
+.anterior .item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 25%;
+    width: 100%;
+
+
+    background-color: #287d3c;
+    font-size: 2dvw;
+
+    border-width: 1px 2px 1px 2px;
+    border-style: solid ;
+    border-color: black;
+}
+
+.anterior .item .itemrow{
+    padding: 0 5px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.hora{
+    width: 100%;
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+
+
 .callbox{
   display: flex;
   justify-content: center;

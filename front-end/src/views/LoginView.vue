@@ -181,7 +181,7 @@ section .signin .content
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 section .signin .content h2 
 {
