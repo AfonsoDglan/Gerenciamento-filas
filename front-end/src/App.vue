@@ -3,6 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import { ref } from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
 import router from './router';
+import axios from 'axios';
 
 
 const Logado = ref(false)
@@ -39,7 +40,7 @@ router.beforeEach((to,from) => {
         <RouterLink class="navbtn" to="/fila">Fila</RouterLink>
         <RouterLink class="navbtn" to="/perfil">Perfil</RouterLink>
         <RouterLink class="navbtn" to="/triagem">Triagem</RouterLink>
-        <RouterLink class="navbtn" to="/senha">Senha</RouterLink>
+        <RouterLink class="navbtn" to="/consulta">Consulta</RouterLink>
        
         
         <RouterLink v-if="!Logado" class="navbtn login" to="/login">Login</RouterLink>
@@ -53,7 +54,7 @@ router.beforeEach((to,from) => {
 
   <RouterView />
 
-  <RouterLink class="navbtn todapag" v-if="Logado && tipo === '1'" to="/addfila">+</RouterLink>
+  <RouterLink class="navbtn todapag" v-if="Logado && tipo === '1'" to="/consulta">+</RouterLink>
   <RouterLink class="navbtn todapag" v-if="Logado && tipo === '2'" to="/triagem">+</RouterLink>
 
   <div class="footer">
