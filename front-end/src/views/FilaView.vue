@@ -15,17 +15,19 @@ const fila = ref([  {chamado:'C1',sala:'Triagem 1'},
 const hora: Ref<Date | string> = ref(new Date())
 displayCurrentDate()
 
-//const url = 'http://127.0.0.1:8000/painel/'
+function AtualizarPainel() {
+  const url = 'http://127.0.0.1:8000/painel/'
 
-//axios.get(url)
-//.then((response) => {
-//    if (response.status === 200) {
-//        fila.value = response.data
-//    }
-//})
-//.catch( (erro) => {
-//    console.log(erro)
-//})
+  axios.get(url)
+  .then((response) => {
+      if (response.status === 200) {
+          fila.value = response.data['chamado']
+      }
+  })
+  .catch( (erro) => {
+      console.log(erro)
+  })
+}
 
 function displayCurrentDate() {
     const locale = 'pt-BR';
@@ -34,7 +36,7 @@ function displayCurrentDate() {
     hora.value = currentDate.toLocaleString(locale,{year: 'numeric', month: 'long',day: 'numeric', hour: 'numeric', minute: 'numeric'});
     
     // Call the function every second
-    setTimeout(displayCurrentDate, 1000);
+    setTimeout(displayCurrentDate, 30000);
     
 }
 

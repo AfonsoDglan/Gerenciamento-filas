@@ -8,6 +8,7 @@ import PerfilView from '@/views/PerfilView.vue'
 import AdicionarFilaView from '@/views/AdicionarFilaView.vue'
 import TriagemView from '@/views/TriagemView.vue'
 import SenhaView from '@/views/SenhaView.vue'
+import ConsultaView from '@/views/ConsultaView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,6 +32,11 @@ const router = createRouter({
       path: '/senha',
       name: 'senha',
       component: SenhaView
+    },
+    {
+      path: '/consulta',
+      name: 'consulta',
+      component: ConsultaView
     },
     {
       path: '/login',

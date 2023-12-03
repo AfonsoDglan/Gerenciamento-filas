@@ -13,7 +13,7 @@ function senha(tipo:string){
         if (response.status === 201) {
             localStorage.setItem('senha',response.data['senha'])
             //localStorage.setItem('senha','c1')
-            router.push({name: 'senha'} )
+            router.push({name: 'senha'})
         }
     })
     .catch( (erro) => {
@@ -36,8 +36,8 @@ function senha(tipo:string){
             <div class="instruções">
                 <h2>Para ser atendido, pressione uma das opções abaixo </h2>
                 <div class="butoes"> 
-                    <button class="btn normal" @click="senha('n')">Senha Normal</button>
-                    <button class="btn prefe" @click="senha('p')">Senha Prefenrencial</button>
+                    <button class="btn normal" @click="senha('n')">Senha Convêncional</button>
+                    <button class="btn prefe" @click="senha('p')">Senha Preferêncial</button>
                 </div>
                 <div class="info">
                     <h2>Atenção!</h2>
@@ -109,7 +109,7 @@ body{
   	align-items: center;
   	flex-direction: column;
 	width: 100%;
-	height: 200px;
+	height: 100px;
 	
 
 	border-radius: 4px;
@@ -148,6 +148,7 @@ body{
     font-size: 20px;
     min-width: 150px;
 }
+
 
 .normal{
     background-color: #0853bd;
