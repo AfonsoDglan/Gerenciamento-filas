@@ -5,7 +5,7 @@ from .pessoa import Pessoa
 class Painel(models.Model):
     senha = models.CharField(max_length=220)
     sala = models.CharField(max_length=220)
-    quemChamou = models.ForeignKey(Pessoa, editable=False, on_delete=models.PROTECT) # noqa(E501)
+    quemChamou = models.ForeignKey(Pessoa, on_delete=models.PROTECT) # noqa(E501)
     horaChamada = models.DateTimeField(u'Data e Hora', null=True)
 
     class Meta:
@@ -13,4 +13,4 @@ class Painel(models.Model):
         verbose_name_plural = "Paineis"
 
     def __str__(self):
-        return self.chamado
+        return self.senha + self.sala

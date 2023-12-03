@@ -5,11 +5,11 @@ import type { Ref } from  'vue'
 
 
 
-const fila = ref([	{chamado: '...', sala: '...'},
-					{chamado: '...', sala: '...'},	
-					{chamado: '...', sala: '...'},	
-					{chamado: '...', sala: '...'},	
-					{chamado: '...', sala: '...'},	
+const fila = ref([	{senha: '...', sala: '...'},
+					{senha: '...', sala: '...'},	
+					{senha: '...', sala: '...'},	
+					{senha: '...', sala: '...'},	
+					{senha: '...', sala: '...'},	
 ])
 
 const ws = new WebSocket("ws://127.0.0.1:8000/senhasPainel");
@@ -25,6 +25,7 @@ ws.onopen = function (e) {
 
 ws.onmessage = function (e) {
 	let allData = JSON.parse(e.data);
+  console.log(e.data)
 	if (allData.action === "list") {
 		fila.value = allData.data;
 	} else if (allData.action === "create") {
@@ -55,7 +56,7 @@ function displayCurrentDate() {
             <div class="boxatual"> 
                 <div class="titulo">Atual</div>
                 <div class="atual">
-                    <div>Senha:{{  fila[0].chamado }}</div>
+                    <div>Senha:{{  fila[0].senha }}</div>
                     <div>Sala:{{  fila[0].sala }}</div>
                 </div>
                 <div class="hora">{{ hora }}</div>
@@ -65,7 +66,7 @@ function displayCurrentDate() {
                 <div class="titulo">Ultimas Chamadas</div>
                 <div class="anterior">
                     <div class="item" v-for="item in fila.slice(1,)">
-                        <div class="itemrow"><div>Senha</div> <div>{{  item.chamado }}</div> </div>
+                        <div class="itemrow"><div>Senha</div> <div>{{  item.senha }}</div> </div>
                         <div class="itemrow"><div>Sala</div> <div>{{  item.sala }}</div> </div>
                     </div>
 
