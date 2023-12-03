@@ -5,29 +5,35 @@ import type { Ref } from  'vue'
 
 
 
-const fila = ref([  {chamado:'C1',sala:'Triagem 1'},
-                    {chamado:'P1',sala:'Triagem 2'},
-                    {chamado:'C2',sala:'Triagem 3'},
-                    {chamado:'C3',sala:'Triagem 2'},
-                    {chamado:'P2',sala:'Triagem 3'},
+const fila = ref([	{chamado: '...', sala: '...'},
+					{chamado: '...', sala: '...'},	
+					{chamado: '...', sala: '...'},	
+					{chamado: '...', sala: '...'},	
+					{chamado: '...', sala: '...'},	
 ])
+
+const ws = new WebSocket("ws://127.0.0.1:8000/senhasPainel");
+ws.onopen = function (e) {
+  console.log('Websocket Aberta')
+	ws.send(
+		JSON.stringify({
+			action: "list",
+			request_id: new Date().getTime(),
+		})
+	);
+};
+
+ws.onmessage = function (e) {
+	let allData = JSON.parse(e.data);
+	if (allData.action === "list") {
+		fila.value = allData.data;
+	} else if (allData.action === "create") {
+		fila.value.push(allData.data);
+	}
+};
 
 const hora: Ref<Date | string> = ref(new Date())
 displayCurrentDate()
-
-function AtualizarPainel() {
-  const url = 'http://127.0.0.1:8000/painel/'
-
-  axios.get(url)
-  .then((response) => {
-      if (response.status === 200) {
-          fila.value = response.data['chamado']
-      }
-  })
-  .catch( (erro) => {
-      console.log(erro)
-  })
-}
 
 function displayCurrentDate() {
     const locale = 'pt-BR';
