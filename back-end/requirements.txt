@@ -1,6 +1,7 @@
 Django==4.2.3
 psycopg2-binary==2.9.6
 djangochannelsrestframework
+django-cors-headers==4.3.0
 djangorestframework
 Pillow
 channels-redis==3.4.0

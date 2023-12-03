@@ -6,7 +6,7 @@ import axios from 'axios';
 const tipo = ref('n')
 
 function senha(tipo:string){
-    const url = 'http://127.0.0.1:8000/senha?tipo=' + tipo
+    const url = 'http://127.0.0.1:8000/senha/?tipo=' + tipo
     console.log(url)
     axios.get(url)
     .then( ( response ) => {
