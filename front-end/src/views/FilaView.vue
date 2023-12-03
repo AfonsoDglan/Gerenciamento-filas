@@ -11,6 +11,7 @@ const fila = ref([	{senha: '...', sala: '...'},
 					{senha: '...', sala: '...'},	
 					{senha: '...', sala: '...'},	
 ])
+console.log('fila original',fila.value)
 
 const ws = new WebSocket("ws://127.0.0.1:8000/senhasPainel");
 ws.onopen = function (e) {
@@ -24,10 +25,26 @@ ws.onopen = function (e) {
 };
 
 ws.onmessage = function (e) {
+
 	let allData = JSON.parse(e.data);
-  console.log(e.data)
+
 	if (allData.action === "list") {
-		fila.value = allData.data;
+
+    let chamadas: Array<{senha:string , sala:string}> = allData.data
+    
+    if (chamadas.length){
+
+        chamadas.forEach((element,i) => {
+        fila.value[i] = element
+        i++
+      });
+      var i = chamadas.length 
+      while (i < 5) {
+        fila.value[i] = {senha: '...', sala: '...'}
+        i++
+      }
+    }
+
 	} else if (allData.action === "create") {
 		fila.value.push(allData.data);
 	}
