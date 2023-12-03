@@ -3,7 +3,8 @@ from .pessoa import Pessoa
 
 
 class Painel(models.Model):
-    chamado = models.CharField(max_length=220)
+    senha = models.CharField(max_length=220)
+    sala = models.CharField(max_length=220)
     quemChamou = models.ForeignKey(Pessoa, editable=False, on_delete=models.PROTECT) # noqa(E501)
     horaChamada = models.DateTimeField(u'Data e Hora', null=True)
 

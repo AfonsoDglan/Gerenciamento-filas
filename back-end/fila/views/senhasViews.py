@@ -11,7 +11,6 @@ class SenhasViewSet(viewsets.ModelViewSet):
     serializer_class = SenhasSerializer
 
     def list(self, request, *args, **kwargs):
-        print("aquiiiiiiiii", request.GET.get('tipo'))
         if request.GET.get('tipo') == "p":
             ultimaSenha = Senha.objects.filter(tipo=2).count()
             senha = 'P - ' + str(ultimaSenha+1)
