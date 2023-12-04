@@ -4,3 +4,4 @@ from fila.views.pessoaViews import PessoaViewSet  # noqa:F401
 from fila.views.painelViews import PainelViewSet  # noqa:F401
 from fila.views.consultaViews import ConsultaViewSet  # noqa:F401
 from fila.views.proximaSenhaView import ProximaSenhaViewSet  # noqa: F401
+from fila.views.proximoPacienteView import ProximoPacienteViewSet  # noqa: F401
