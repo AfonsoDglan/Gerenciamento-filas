@@ -5,3 +5,5 @@ from fila.views.painelViews import PainelViewSet  # noqa:F401
 from fila.views.consultaViews import ConsultaViewSet  # noqa:F401
 from fila.views.proximaSenhaView import ProximaSenhaViewSet  # noqa: F401
 from fila.views.proximoPacienteView import ProximoPacienteViewSet  # noqa: F401
+from fila.views.loginAndCreateUserView import UserRegistrationView  # noqa: F401, E501
+from fila.views.loginAndCreateUserView import UserLoginView  # noqa: F401

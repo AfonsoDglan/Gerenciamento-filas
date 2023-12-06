@@ -3,7 +3,8 @@ from django.urls import path
 from fila.views import (SenhasViewSet, ProximaSenhaViewSet,
                         ProximoPacienteViewSet, TriagemViewSet,
                         PessoaViewSet, PainelViewSet,
-                        ConsultaViewSet)
+                        ConsultaViewSet, UserLoginView,
+                        UserRegistrationView)
 from django.http import HttpResponse
 
 
@@ -24,5 +25,7 @@ def teste(request):
 urlpatterns = [
     path("", teste),
     path("senha/", SenhasViewSet.as_view({'get': 'list'})),
+    path("register", UserRegistrationView.as_view()),
+    path("login", UserLoginView.as_view())
 ]
 urlpatterns += router.urls
