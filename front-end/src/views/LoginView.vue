@@ -10,16 +10,16 @@ const incorreto = ref(false)
 const  autenticar = () => {
 
   const API_URL = 'http://127.0.0.1:8000/login'
-  const url = API_URL + 'user=' + username.value + '&senha=' +password.value
-
+  console.log('oiii')
     axios.post(API_URL,{'usename':username.value,'password':password.value})
     .then( (response) => {
+      console.log('response',response.data)
       if(response.status == 200){
         localStorage.setItem('token',response.data['token'])
         router.push({name:'fila'})
       }
     }).catch( (erro) => {
-      if (erro.status == 400 ) {
+      if (erro.status == 401 ) {
       incorreto.value = true
       } else {
         console.log(erro)
@@ -47,7 +47,7 @@ const  autenticar = () => {
 
   </div> 
 
-   <div class="form"> 
+   <div class="form"> signup
 
     <div class="inputBox"> 
 
