@@ -3,57 +3,29 @@ import { ref } from 'vue'
 import router from '@/router';
 import axios from 'axios'
 
-const username = ref('teste')
-const password = ref('teste')
+const username = ref('')
+const password = ref('')
 const incorreto = ref(false)
 
 const  autenticar = () => {
-  
-  // Autentificação
-  const API_URL = 'URL da API'
+
+  const API_URL = 'http://127.0.0.1:8000/login'
   const url = API_URL + 'user=' + username.value + '&senha=' +password.value
-  //axios.post(url)
-  //  .then(( ))
-  //}
-  //criptografar senha - checar qual
 
-  const resp: any = {"token": "1234",
-                "nome" : username.value + ' sobrenome',
-                'tipo' : 1}
-
-  const resp2: any = {"token": "1234",
-                "nome" : username.value + ' sobrenome',
-                'tipo' : 2}            
-  
-
-  if (username.value === 'teste' && password.value === 'teste') {
-    console.log('Autenticado!')
-    for (const key in resp) {
-      if (resp.hasOwnProperty(key)) {
-        localStorage.setItem(key, JSON.stringify(resp[key]));
+    axios.post(API_URL,{'usename':username.value,'password':password.value})
+    .then( (response) => {
+      if(response.status == 200){
+        localStorage.setItem('token',response.data['token'])
+        router.push({name:'fila'})
       }
-    }
-    router.push({name:'fila'}) 
-
-    
-   
-  }
-  else if (username.value === 'teste1' && password.value === 'teste'){
-    console.log('Autenticado!')
-    for (const key in resp2) {
-      if (resp.hasOwnProperty(key)) {
-        localStorage.setItem(key, JSON.stringify(resp2[key]));
+    }).catch( (erro) => {
+      if (erro.status == 400 ) {
+      incorreto.value = true
+      } else {
+        console.log(erro)
       }
-    }
-    router.push({name:'fila'}) 
-  }
-  else{
-    incorreto.value = true
-  }
+    })
 }
-
-
-
 
 </script>
 

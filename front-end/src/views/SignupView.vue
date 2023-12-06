@@ -85,12 +85,6 @@ function sumir(){
 
     </div> 
 
-    <div class="inputBox"> 
-      <label for="email">Email</label> 
-     <input v-model="email" id="email" type="email" required>
-
-    </div> 
-
     <div class="inputBox freqs"> 
 
         <div class="inputBox"> 
@@ -98,8 +92,8 @@ function sumir(){
             <label for="atuacao">Area de Atuação</label><br>
             <select  v-model="area" id="atuacao">
             <option  disabled value="">Selecione</option>
-            <option value="2">Medico</option>
-            <option value="1">Enfermeira</option>
+            <option value="1">Medico</option>
+            <option value="2">Enfermeira</option>
             </select>
 
         </div> 
