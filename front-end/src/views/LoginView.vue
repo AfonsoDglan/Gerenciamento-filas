@@ -63,7 +63,7 @@ const  autenticar = () => {
 
     </div> 
 
-    <div class="links"> <a style="color: black;" href="#">Esqueceu a senha?</a> <a @click="router.push({name:'signup'})">Signup</a> 
+    <div class="links"> <a @click="router.push({name:'signup'})">Signup</a> 
 
     </div>
 
@@ -230,13 +230,8 @@ section .signin .content .form .inputBox i
 }
 .signin .content .form .links a 
 {
-  color: #fff;
-  text-decoration: none;
-}
-.signin .content .form .links a:nth-child(2)
-{
   color: var(--primarycolor);
-  font-weight: 600;
+  text-decoration: none;
 }
 .signin .content .form .inputBox input[type="submit"]
 {
