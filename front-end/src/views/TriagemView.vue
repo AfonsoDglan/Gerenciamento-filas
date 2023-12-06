@@ -2,10 +2,6 @@
 import { ref } from 'vue'
 import axios from 'axios'
 
-const atendente = ref(localStorage.getItem('nome'))
-if (atendente.value) {
-  atendente.value = atendente.value.replace(/['"]+/g, '')
-}
 const nomePaciente = ref('')
 const estado = ref('')
 const senha = ref('')
@@ -22,9 +18,7 @@ const fratura = ref('')
 const queimadura = ref('')
 const classe = ref('')
 
-const data = [	atendente,
-				nomePaciente,
-				estado,
+const data = [	nomePaciente,
 				senha,
 				senha,
 				sexo,
@@ -40,15 +34,20 @@ const data = [	atendente,
 				queimadura,
 				classe ]
 
+axios.get('http://127.0.0.1:8000/proxima')
+.then( (response) => {
+	console.log('proxima',response.data)
+})
+.catch( (erro) => {
+	console.log('erro de proxima',erro)
+})
+
 const confirmar = () => {
-	estado.value = 'atendido'
 
   if (FormularioPreenchido()){
-	const url = 'http://127.0.0.1:8000/triagem/'
+	const url = 'http://127.0.0.1:8000/triagem'
 	console.log()
-   	axios.post(url,{atendente: atendente.value,
-                   nomePaciente: nomePaciente.value,
-                   estado: estado.value,
+   	axios.post(url,{nomePaciente: nomePaciente.value,
                    senha: senha.value,
                    sexo: sexo.value,
                    queixaPrincipal: queixa.value,
@@ -81,10 +80,16 @@ function FormularioPreenchido() {
 	})
 	return valid
 }
+// Utilidades
+// todos os campos preenchidos
 const invalido = ref(false)
 function sumir(){
   invalido.value = false
 }
+
+// spinner
+const esperar = ref(true)
+
 </script>
 
 <template>
@@ -101,11 +106,6 @@ function sumir(){
             <div class='form'>
 
                 <div class="inputBox"> 
-                    <label for="atendente">Atendente</label>
-                    <input v-model="atendente" id="atendente" type="text" required> 
-                </div> 
-
-                <div class="inputBox"> 
                     <label for="paciente">Nome do Paciente</label> 
                     <input v-model="nomePaciente" id="paciente" type="text" required> 
                 </div> 
@@ -117,7 +117,6 @@ function sumir(){
                     <option  disabled value="">Selecione</option>
                     <option>Masculino</option>
                     <option>Feminino</option>
-                    <option>Outro</option>
                     </select>
 
                 </div> 
@@ -170,8 +169,15 @@ function sumir(){
                   </div> 
 
                   <div class="inputBox freq"> 
-                      <label for="freqarte">Pressão Arterial</label> 
-                      <input v-model="freqarte" id="freqarte" type="text" required> 
+                      <label for="queimadura">Pressão Arterial</label> 
+                      <select  v-model="queimadura" id="queimadura">
+                      <option  disabled value="">Selecione</option>
+                          <option>Normal</option>
+                          <option>Elevada</option>
+                          <option>Hipertensão Estágio 1</option>
+                          <option>Hipertensão Estágio 2</option>
+                          <option>Crise Hipertensiva</option>
+                    </select>
                   </div> 
 
                 </div>
@@ -206,22 +212,7 @@ function sumir(){
                   </div> 
 
                 </div>
-
-                <div class="inputBox"> 
-
-                    <label for="classe">Classificação</label><br>
-                    <select  v-model="classe" id="classe">
-                    <option  disabled value="">Selecione</option>
-                    <option>Emergência</option>
-                    <option>Muito Urgente</option>
-                    <option>Urgente</option>
-                    <option>Pouco Urgente</option>
-                    <option>Não Urgente</option>
-                    </select>
-
-                </div> 
                 
-
                 <div class="inputBox"> 
                     <input @click="confirmar()" type="submit" value="Confirmar"> 
                 </div> 
@@ -380,6 +371,12 @@ h1
   cursor: pointer;
 }
 
+.box .form .inputBox input[type="submit"]:hover{
+	background-color: var(--hoverprimarycolor);
+}
+
+
+
 .box .form .inputBox input[type="range"]
 {
   padding: 0;
@@ -424,10 +421,5 @@ datalist {
 	font-size: 15px;
 	color: gray;
 }
-
-
-
-
-
 
 </style>

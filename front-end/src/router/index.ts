@@ -34,11 +34,6 @@ const router = createRouter({
       component: SenhaView
     },
     {
-      path: '/consulta',
-      name: 'consulta',
-      component: ConsultaView
-    },
-    {
       path: '/login',
       name: 'login',
       component: LoginView
@@ -71,17 +66,22 @@ const router = createRouter({
       meta: {
         requiresAuth: true // Add meta field to indicate protected route
       }
-    }
+    }, 
+    {
+      path: '/consulta',
+      name: 'consulta',
+      component: ConsultaView,
+      meta: {
+        requiresAuth: true // Add meta field to indicate protected route
+      }
+    },
   ]
 })
 
 router.beforeEach((to, from) => {
   if (to.meta.requiresAuth)  {
-    if (localStorage.getItem('token')) {
-    }
-    else{
-      return {name:'login'}
-    }  
+    if (localStorage.getItem('token')) {}
+    else{ return {name:'login'} }  
   }
 })
 

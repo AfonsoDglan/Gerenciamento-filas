@@ -7,6 +7,7 @@ import axios from 'axios';
 
 
 const Logado = ref(false)
+const confirma = ref(false)
 
 const tipo = ref('')
 
@@ -29,6 +30,15 @@ router.beforeEach((to,from) => {
   }
 )
 
+function Chamar(){
+	if (tipo.value === '1'){ 
+		confirma.value = false
+		router.push({name:'triagem'})}
+	if (tipo.value === '2'){ 
+		confirma.value = false
+		router.push({name:'consulta'})}
+}
+
 </script>
 
 <template>
@@ -36,11 +46,10 @@ router.beforeEach((to,from) => {
   <header>
     <nav>
         <HelloWorld msg="Hospital" />
-        <RouterLink class="navbtn" to="/">Home</RouterLink>
-        <RouterLink class="navbtn" to="/fila">Fila</RouterLink>
-        <RouterLink class="navbtn" to="/perfil">Perfil</RouterLink>
-        <RouterLink class="navbtn" to="/triagem">Triagem</RouterLink>
-        <RouterLink class="navbtn" to="/consulta">Consulta</RouterLink>
+        <RouterLink class="navbtn" to="/"  v-if="!Logado">Home</RouterLink>
+        <a class="navbtn" @click="confirma = true" v-if="Logado && tipo === '1'" >Triagem</a>
+        <a class="navbtn" @click="confirma = true" v-if="Logado && tipo === '2'" >Consulta</a>
+		<RouterLink class="navbtn" to="/fila">Fila</RouterLink>
        
         
         <RouterLink v-if="!Logado" class="navbtn login" to="/login">Login</RouterLink>
@@ -54,17 +63,28 @@ router.beforeEach((to,from) => {
 
   <RouterView />
 
-  <RouterLink class="navbtn todapag" v-if="Logado && tipo === '1'" to="/consulta">+</RouterLink>
-  <RouterLink class="navbtn todapag" v-if="Logado && tipo === '2'" to="/triagem">+</RouterLink>
+  	<div class="confirmação" v-if="confirma"> 
+		<div class="confbox">
+			<div class="greentop"></div>
+			<div class="content">
+				<h2>Deseja Chamar o Proximo Paciente</h2>
+				<div class="options"><a class="navbtn" @click="Chamar">Confirmar</a> <div class="navbtn cancelar" @click="confirma=false">Cancelar</div></div>
+			</div>
+		</div>
 
-  <div class="footer">
+	</div>
+
+  <a class="navbtn todapag" v-if="Logado && tipo === '1'" @click="confirma = true">+</a>
+  <a class="navbtn todapag" v-if="Logado && tipo === '2'" @click="confirma = true">+</a>
+
+  <!--<div class="footer">
 	<div class="footcol">Atendimento</div>
 	<div class="footcol">Fila</div>
 	<div class="footcol">Traigem</div>
 	<div class="footcol">Social</div>
 	<div class="footcol">Noticias</div>
 
-  </div>
+  </div> -->
   
 
 </template>
@@ -189,6 +209,68 @@ nav a:first-of-type {
 	background-color: var(--secondarycolor);
 	width: auto;
 }
+
+.confirmação{
+	position: fixed;
+	top: 0;
+	left:0;
+	height: 100%;
+	width: 100vw;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	backdrop-filter: blur(10px);
+}
+
+.confirmação h2{
+	color: black;
+	font-size: 1.2vw;
+}
+
+.confbox {
+	height: 20%;
+	width: 25%;
+
+	display: flex;
+	flex-direction: column;
+	
+	border: 2px solid black;
+
+	border-radius: 4px;
+	background-color: white;
+}
+
+.greentop{
+
+	height: 10%;
+	min-height: 15px;
+	background-color: var(--primarycolor);
+}
+
+.content{ 
+	height: auto-fill;
+	display: flex;
+	flex-direction: column;
+
+	margin: 15px;
+
+	align-items: center;
+	gap: 15px;
+}
+
+.options{
+	display: flex;
+	gap: 20px;
+}
+.cancelar{
+	background-color: #a10303;
+}
+.cancelar:hover{
+	background-color: #ed0000;
+}
+
+
 
 
 

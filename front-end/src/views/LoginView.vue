@@ -33,7 +33,7 @@ const  autenticar = () => {
         localStorage.setItem(key, JSON.stringify(resp[key]));
       }
     }
-    router.push({name:'perfil'}) 
+    router.push({name:'fila'}) 
 
     
    
@@ -45,7 +45,7 @@ const  autenticar = () => {
         localStorage.setItem(key, JSON.stringify(resp2[key]));
       }
     }
-    router.push({name:'perfil'}) 
+    router.push({name:'fila'}) 
   }
   else{
     incorreto.value = true
