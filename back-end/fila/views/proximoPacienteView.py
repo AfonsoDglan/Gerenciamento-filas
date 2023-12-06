@@ -11,5 +11,6 @@ class ProximoPacienteViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         proximo = Triagem.objects.filter(estado=1).order_by("classificacao").first()  # noqa: E501
-        return Response(proximo, status=status.HTTP_200_OK)
-        #  return Response(status=satus.HTTP_204_NO_CONTENT)
+        if proximo:
+            return Response(proximo, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_204_NO_CONTENT)

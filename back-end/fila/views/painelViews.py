@@ -4,5 +4,5 @@ from fila.models import Painel
 
 
 class PainelViewSet(viewsets.ModelViewSet):
-    queryset = Painel.objects.all()
+    queryset = Painel.objects.all()[:5]
     serializer_class = PainelSerializer

@@ -35,12 +35,20 @@ ESTADO_CHOICES = (
     (2, 'atendido')
 )
 
+PRESSAO_CHOICES = (
+    (1, 'Normal'),
+    (2, 'Elevada'),
+    (3, 'Hipertensão Estágio 1'),
+    (4, 'Hipertensão Estágio 2'),
+    (5, 'Crise Hipertensiva')
+)
+
 
 class Triagem(models.Model):
     atendente = models.ForeignKey(Pessoa, on_delete=models.PROTECT) # noqa(E501)
     nomePaciente = models.CharField(max_length=220)
     senha = models.CharField(max_length=20, null=True, unique=True)
-    estado = models.IntegerField('Estado da Triagem', choices=ESTADO_CHOICES, null=False)
+    estado = models.IntegerField('Estado da Triagem', choices=ESTADO_CHOICES, null=False)  # noqa(E501)
     sexo = models.IntegerField('Sexo', choices=SEXO_CHOICES, null=True)
     queixaPrincipal = models.TextField('Queixa', blank=True, null=True)
     historicoBreve = models.TextField('Historico', blank=True, null=True)
@@ -48,7 +56,7 @@ class Triagem(models.Model):
     dor = models.IntegerField(verbose_name='Nível de Dor', help_text='De 0 a 10 qual o seu nível de Dor.', choices=[(i, str(i)) for i in range(11)])  # noqa(E501)
     frequenciaCardiaca = models.IntegerField()
     frequenciaRespiratoria = models.IntegerField()
-    pressaoArterial = models.IntegerField()
+    pressaoArterial = models.IntegerField('Pressão Arterial ', choices=PRESSAO_CHOICES, null=True)  # noqa(E501)
     temperatura = models.FloatField()
     fraturasExpostas = models.IntegerField('Fraturas Expostas', choices=FRATURAS_CHOICES, null=True)  # noqa(E501)
     quimadurasGraves = models.IntegerField('Queimaduras Graves.', choices=QUEIMADURAS_CHOICES)  # noqa(E501)
