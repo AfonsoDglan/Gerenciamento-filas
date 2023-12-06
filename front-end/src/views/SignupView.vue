@@ -6,8 +6,9 @@ import { ref } from 'vue'
 const cpf = ref('')
 const username = ref('')
 const password = ref('')
+const nomecompleto = ref('')
 const email = ref('')
-const sexo = ref('')
+const sala = ref('')
 const area = ref('')
 
 const invalido = ref(false)
@@ -16,16 +17,17 @@ const alma =ref(false)
 const confirmar = () => {
 
     const data = {  cpf: cpf.value,
-                    username: username.value,
-                    password: password.value,
-                    email: email.value,
-                    sexo: sexo.value,
-                    area: area.value}
-    const url = 'http://127.0.0.1:8000/alugma coisa aqui/'
+                    user:{username: username.value,
+                          password: password.value,},
+                    nomeCompleto: nomecompleto.value,
+                    sala: sala.value,
+                    tipo: area.value}
+    const url = 'http://127.0.0.1:8000/register'
     axios.post(url,data)
     .then( (response:  AxiosResponse) => {
         if (response.status === 201){
-            router.push({name:'perfil'})
+            localStorage.setItem('token',response.data['token'])
+            router.push({name:'fila'})
         }
     })
     .catch( (erro) => {
@@ -50,8 +52,6 @@ function sumir(){
     <div v-if="invalido" class="invalido" @click="sumir()">Preencha Todos os Campos
         <p class="closetag">clique para fechar</p></div>
 
-<section> 
-
  <div class="signin"> 
 
   <div class="content"> 
@@ -59,6 +59,18 @@ function sumir(){
    <h2>Cadastro</h2> 
 
    <div class="form"> 
+
+    <div class="inputBox"> 
+      <label for="usuario">Usuario</label> 
+      <input v-model="username" id="usuario" type="text" required> 
+
+    </div> 
+
+    <div class="inputBox"> 
+      <label for="senha">Senha</label> 
+     <input v-model="password" id="senha" type="password" required>
+
+    </div> 
 
     <div class="inputBox"> 
 
@@ -69,13 +81,7 @@ function sumir(){
 
     <div class="inputBox"> 
       <label for="nome">Nome Completo</label> 
-      <input v-model="username" id="nome" type="text" required> 
-
-    </div> 
-
-    <div class="inputBox"> 
-      <label for="senha">Senha</label> 
-     <input v-model="password" id="senha" type="password" required>
+      <input v-model="nomecompleto" id="nome" type="text" required> 
 
     </div> 
 
@@ -92,22 +98,16 @@ function sumir(){
             <label for="atuacao">Area de Atuação</label><br>
             <select  v-model="area" id="atuacao">
             <option  disabled value="">Selecione</option>
-            <option>Atendendimento</option>
-            <option>Triagem</option>
-            <option>Consulta</option>
+            <option value="2">Medico</option>
+            <option value="1">Enfermeira</option>
             </select>
 
         </div> 
 
         <div class="inputBox"> 
 
-            <label for="sexo">Sexo</label><br>
-            <select  v-model="sexo" id="sexo">
-            <option  disabled value="">Selecione</option>
-            <option>Masculino</option>
-            <option>Feminino</option>
-            <option>Outro</option>
-            </select>
+          <label for="sala">Sala</label> 
+     <input v-model="sala" id="sala" type="sala" required>
 
         </div> 
 
@@ -136,7 +136,6 @@ function sumir(){
 
  </div> 
 
-</section> <!-- partial --> 
 
 </body>
 
@@ -166,9 +165,8 @@ body
 {
   position: relative;
   top: 10px;  
-  width: 80vw;
-  background: var(--secondarycolor);  
-
+  width: 80%;
+  background: var(--secondarycolor); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -223,6 +221,7 @@ body
 {
   position: relative;
   width: 100%;
+  color: black;
 
 }
 section .signin .content .form .inputBox label
