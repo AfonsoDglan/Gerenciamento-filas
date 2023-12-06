@@ -12,7 +12,7 @@ class ProximaSenhaViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         if Senha.objects.filter(tipo=2, status=1).count() >= 1:
-            utimasDuasSenhasChamadas = Senha.objects.filter(status=2)[::-1][:2]
+            utimasDuasSenhasChamadas = Senha.objects.filter(status=1)[::-1][:2]
             if utimasDuasSenhasChamadas[0].tipo != 2 and utimasDuasSenhasChamadas[1].tipo != 2:  # noqa: E501
                 proximaSenha = Senha.objects.filter(status=1, tipo=2).first()
                 proximaSenha.status = 2

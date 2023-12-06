@@ -5,3 +5,4 @@ django-cors-headers==4.3.0
 djangorestframework
 Pillow
 channels-redis==3.4.0
+djangorestframework-simplejwt==5.3.0
