@@ -142,6 +142,10 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8080",
     # Adicione outras origens permitidas, se necessário
 ]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8080",
+    "http://127.0.0.1:8080",
+]
 
 CORS_ALLOW_METHODS = [
     'DELETE',
@@ -162,4 +166,5 @@ CORS_ALLOW_HEADERS = [
     'user-agent',
     'x-csrftoken',
     'x-requested-with',
+    'token'
 ]

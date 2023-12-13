@@ -27,19 +27,22 @@ class UserRegistrationView(APIView):
                 'tipo': serializer.validated_data['tipo'],
                 'sala': serializer.validated_data['sala'],
             }
-            Pessoa.objects.create(**profile_data)
+            pessoa = Pessoa.objects.create(**profile_data)
             token, created = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key}, status=status.HTTP_201_CREATED)  # noqa: E501
+            return Response({'token': token.key, 'tipo': pessoa.tipo}, status=status.HTTP_201_CREATED)  # noqa: E501
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserLoginView(APIView):
     permission_classes = [AllowAny]
+
     def post(self, request, *args, **kwargs):
-        username = request.data.get('username')
+        print("aquiiiiiiiiiiiii", request.data)
+        username = request.data.get('usename')
         password = request.data.get('password')
         user = authenticate(username=username, password=password)
         if user:
-            token, _ = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key}, status=status.HTTP_200_OK)
+            token, created = Token.objects.get_or_create(user=user)
+            tipo = Pessoa.objects.get(user=user)
+            return Response({'token': token.key, 'tipo': tipo.tipo}, status=status.HTTP_200_OK)
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)  # noqa: E501

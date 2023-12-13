@@ -2,6 +2,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.authtoken.models import Token
 from fila.serializers import TriagemSerializer
 from fila.models import Triagem, Pessoa
 
@@ -14,7 +15,8 @@ class TriagemViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            serializer.validated_data['atendente'] = Pessoa.objects.get(user__username=request.user)  # noqa: E501
+            user = Token.objects.get(key=token).user
+            serializer.validated_data['atendente'] = Pessoa.objects.get(user=user)  # noqa: E501
             serializer.validated_data['estado'] = 1
             fratura = serializer.validated_data['fraturasExpostas']
             queimadura = serializer.validated_data['quimadurasGraves']

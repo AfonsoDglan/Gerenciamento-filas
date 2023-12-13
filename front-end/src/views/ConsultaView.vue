@@ -9,7 +9,7 @@ if (atendente.value) {
 const nomePaciente = ref('')
 const diagnostico = ref('')
 
-const mock = { 	atendente:'112tf3y1t3',
+const mock = ref({ 	atendente:'112tf3y1t3',
 				nomePaciente:'112tf3y1t3' ,
 				estado:'112tf3y1t3',
 				senha:'112tf3y1t3' ,
@@ -25,7 +25,7 @@ const mock = { 	atendente:'112tf3y1t3',
 				fraturasExpostas :'112tf3y1t3' ,
 				quimadurasGraves :'112tf3y1t3' ,
 				classificação :'112tf3y1t3' ,
-				}
+				})
 
 
 
@@ -37,6 +37,7 @@ const data = [
 // axios.get(url).
 // then( (response) => {
 //   console.log('ProximoPaciente',response.data)
+      
 // })
 // .catch( (erro) => {
 //   console.log('Erro', erro)

@@ -20,7 +20,7 @@ const Sair = () => {
 }
 
 router.beforeEach((to,from) => {
-  if (from.name === 'login'&& localStorage.getItem('token')) {
+  if (localStorage.getItem('token')) {
       Logado.value = true 
       const tipoexist = localStorage.getItem('tipo')
       if (tipoexist){
@@ -33,10 +33,10 @@ router.beforeEach((to,from) => {
 function Chamar(){
 	if (tipo.value === '1'){ 
 		confirma.value = false
-		router.push({name:'triagem'})}
+		router.push({name:'consulta'})}
 	if (tipo.value === '2'){ 
 		confirma.value = false
-		router.push({name:'consulta'})}
+		router.push({name:'triagem'})}
 }
 
 </script>
@@ -47,8 +47,8 @@ function Chamar(){
     <nav>
         <HelloWorld msg="Hospital" />
         <RouterLink class="navbtn" to="/"  v-if="!Logado">Home</RouterLink>
-        <a class="navbtn" @click="confirma = true" v-if="Logado && tipo === '1'" >Triagem</a>
-        <a class="navbtn" @click="confirma = true" v-if="Logado && tipo === '2'" >Consulta</a>
+        <a class="navbtn" @click="confirma = true" v-if="Logado && tipo === '2'" >Triagem</a>
+        <a class="navbtn" @click="confirma = true" v-if="Logado && tipo === '1'" >Consulta</a>
 		<RouterLink class="navbtn" to="/fila">Fila</RouterLink>
        
         

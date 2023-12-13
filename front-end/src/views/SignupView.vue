@@ -27,6 +27,8 @@ const confirmar = () => {
     .then( (response:  AxiosResponse) => {
         if (response.status === 201){
             localStorage.setItem('token',response.data['token'])
+            console.log(response.data['tipo'])
+            localStorage.setItem('tipo',response.data['tipo'])
             router.push({name:'fila'})
         }
     })

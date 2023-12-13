@@ -33,10 +33,12 @@ const data = [	nomePaciente,
 				fratura,
 				queimadura,
 				classe ]
+const token = localStorage.getItem('token')
 
-axios.get('http://127.0.0.1:8000/proxima')
+axios.get('http://127.0.0.1:8000/proxima', { headers: { 'Authorization': `Basic ${token}` }})
 .then( (response) => {
-	console.log('proxima',response.data)
+  if (response.status === 200) {
+	console.log('deu certo poha',response.data)}
 })
 .catch( (erro) => {
 	console.log('erro de proxima',erro)
